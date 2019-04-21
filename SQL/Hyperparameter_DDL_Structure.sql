@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `hyperparameter_db`.`Dataset_Metadata` (
   `Dataset_Owner` VARCHAR(50) NULL,
   `Licence` VARCHAR(50) NULL,
   `Visibility` VARCHAR(50) NULL,
+  `URL` VARCHAR(100) NULL,
   `Date_Created` DATE NULL,
   `Last_Updated` DATE NULL,
   `Data_Size` DOUBLE NULL,
