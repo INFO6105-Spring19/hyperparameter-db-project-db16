@@ -154,12 +154,13 @@ ENGINE = InnoDB;
 -- Table `hyperparameter_db`.`Dataset_Variable_Details`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hyperparameter_db`.`Dataset_Variable_Details` (
+  `Var_ID` INT AUTO_INCREMENT NOT NULL,
   `Dataset_ID` INT NOT NULL,
   `Name_of_Variables` VARCHAR(50) NULL,
   `Datatype_of_Variable` VARCHAR(50) NULL,
   `Unique_Values_In_Each_Column` INT NULL,
   `Null_Values_In_Each_Column` INT NULL,
-  PRIMARY KEY (`Dataset_ID`),
+  PRIMARY KEY (`Var_ID`),
   FOREIGN KEY (Dataset_ID) REFERENCES `hyperparameter_db`.`Dataset_Metadata`(Dataset_ID))
 ENGINE = InnoDB;
 
