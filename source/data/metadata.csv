@@ -1,0 +1,21 @@
+Columns,Data Type,Variable type
+Authority Name,object,Independent
+Fiscal Year End Date,object,Independent
+Last Name,object,Independent
+First Name,object,Independent
+Title,object,Independent
+Exempt Indicator,object,Independent
+Base Annualized Salary,float64,Independent
+Actual Salary Paid,float64,Independent
+Overtime Paid,float64,Independent
+Performance Bonus,float64,Independent
+Extra Pay,float64,Independent
+Other Compensation,float64,Independent
+Total Compensation,float64,Dependent
+Paid By Another Entity,object,Independent
+Group_Executive,uint8,Independent
+Group_Managerial,uint8,Independent
+Group_Operational,uint8,Independent
+Group_Professional,uint8,Independent
+Group_Technical and Engineering,uint8,Independent
+Pay Type_PT,uint8,Independent

@@ -1,0 +1,12 @@
+,hp_id,hp_name
+0,0,seed
+1,1,learn_rate
+2,2,sample_rate
+3,3,max_depth
+4,4,ntrees
+5,5,r2_stopping
+6,6,alpha
+7,7,lambda
+8,8,link
+9,9,family
+10,10,max_iterations

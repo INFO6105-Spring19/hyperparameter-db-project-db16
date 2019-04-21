@@ -1,0 +1,4 @@
+,model_type_id,model_type_name
+0,0,GBM
+1,1,GLM
+2,2,Ensemble

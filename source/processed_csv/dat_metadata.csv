@@ -1,0 +1,2 @@
+,dataset_id,dataset_name,category,dataset_url,dataset_owner,dataset_publisher,dataset_license,dataset_visibility,last_updated,date_created,number_of_rows,number_of_columns,dataset_size
+0,1,Salary Information for Local Authorities,Transparency,https://www.kaggle.com/new-york-state/nys-salary-information-for-the-public-sector#salary-information-for-local-authorities.csv,NY Open Data,State of New York,CC0 Public Domain,public,2018-12-11,2018-12-11,347601,20,59570291
