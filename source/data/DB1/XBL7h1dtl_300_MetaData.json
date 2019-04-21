@@ -1,0 +1,23 @@
+{
+    "start_time": 1554937694.004011,
+    "target": null,
+    "server_path": "C:\\Users\\sahan\\Documents\\Python_1",
+    "data_path": "C:/Users/sahan/Documents/Python_1/salary-information-for-local-authorities.csv",
+    "test_path": null,
+    "max_models": 9,
+    "run_time": 300,
+    "run_id": "XBL7h1dtl",
+    "scale": false,
+    "regression": true,
+    "model_path": null,
+    "balance": false,
+    "balance_threshold": 0.2,
+    "project": null,
+    "end_time": 1554937694.004011,
+    "execution_time": 0.0,
+    "run_path": "C:\\Users\\sahan\\Documents\\Python_1\\XBL7h1dtl",
+    "nthreads": 1,
+    "min_mem_size": 6,
+    "analysis": 0,
+    "model_execution_time": 318.0548508167267
+}
