@@ -93,13 +93,12 @@ CREATE TABLE IF NOT EXISTS `hyperparameter_db`.`Dataset_Metadata` (
   `Dataset_Owner` VARCHAR(50) NULL,
   `Licence` VARCHAR(50) NULL,
   `Visibility` VARCHAR(50) NULL,
-  `URL` VARCHAR(100) NULL,
+  `URL` VARCHAR(255) NULL,
   `Date_Created` DATE NULL,
   `Last_Updated` DATE NULL,
   `Data_Size` DOUBLE NULL,
   `Number_of_Rows` INT NULL,
   `Number_of_Columns` INT NULL,
-  `Tag_ID` INT NULL,
   PRIMARY KEY (`Dataset_ID`))
 ENGINE = InnoDB;
 
