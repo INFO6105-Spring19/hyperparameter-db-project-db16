@@ -43,7 +43,7 @@ inner join leaderboard_metadata as LDR_MData on LDR_Mdata.Run_ID = Data_Map.Run_
 inner join model_run as MR on MR.Run_ID = LDR_MData.Run_ID
 where LDR_MData.Run_time = 300 
 and Dt_Mdata.Dataset_ID in (select Dataset_ID from Tag_Map where Tag_ID in(select Tag_ID from tags where tag_name like "%employee%")) 
-and Dt_Mdata.Number_of_Rows between 500 and 1000 
+and Dt_Mdata.Number_of_Rows between 500 and 350000 
 and Dt_Mdata.Number_of_columns between 5 and 50
 group by (MR.model_ID) ;
 
@@ -80,9 +80,10 @@ MR.Run_ID in (select Run_ID from leaderboard_Metadata where run_time = 300 and m
 group by IM.model_type_ID;
 
 # Case: 09 Display the different models present in the BestofFamily out of all models generated in that run
-select LDR_Mdata.Run_Id, LDR_Mdata.Run_Time, MR.Run_ID, ID_Map.model_Name, ID_Map.Presence_StackedEnsemble_Best_of_Family
+select MR.Model_ID,LDR.Model_Name, LDR.Presence_StackedEnsembled_Best_of_Family
 from model_run as MR
 inner join Leaderboard_metadata as LDR_Mdata on LDR_Mdata.Run_ID = MR.Run_ID
+inner join leaderboard as LDR on LDR.Model_ID = MR.Model_ID
 inner join ID_Map on ID_Map.Model_ID = MR.Model_ID
 where LDR_Mdata.Run_Time = 300 ;
 
