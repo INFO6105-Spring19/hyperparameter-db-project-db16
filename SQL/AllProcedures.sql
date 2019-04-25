@@ -28,14 +28,18 @@ END$$
 
 -- 2) Base procedure to add to dataset variable details table
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_dataset_vardetails`(
+	in datasetID int(11),
 	in Name_of_Variables varchar(50),
 	in Datatype_of_variable varchar(50),
 	in unique_values_in_each_column int(11),
 	in null_values_in_each_column int(11)
 )
 BEGIN
-	INSERT INTO Dataset_Variable_Details VALUES (Name_of_Variables, Datatype_of_variable,
+	DECLARE vid INT DEFAULT (SELECT MAX(Var_ID)+1 FROM Dataset_Variable_Details);
+    if not exists(select * from Dataset_Variable_Details where Dataset_ID = datasetID and Name_of_Variables = Name_of_Variables) then
+		INSERT INTO Dataset_Variable_Details VALUES (vid, datasetID, Name_of_Variables, Datatype_of_variable,
 				unique_values_in_each_column, null_values_in_each_column);
+	end if;
 END$$
 
 -- 3) Base procedure to add to Tags table (just returns tag ID if tag exists); Returns tagID
@@ -78,7 +82,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_Data_Map`(
 	Dataset_ID int(11),
 	Run_ID varchar(50))
 BEGIN
-INSERT INTO Data_Map VALUES (Dataset_ID,Run_ID);
+	INSERT INTO Data_map VALUES (Dataset_ID,Run_ID);
 END$$
 
 -- 7) Base procedure to add to Leaderboard table; auto-generates and returns model ID
@@ -156,5 +160,75 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_to_ID_map`(IN mod_id int(11), I
 BEGIN
 	insert into ID_Map values (mod_id, mod_type_id);
 END$$
+
+-- 12) Uber procedure to tag a dataset; if tag name already exists in DB just adds to tag map
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tag_dataset`(
+	in datasetID int(11),
+    in tag VARCHAR(50)
+)
+BEGIN
+	declare tid int(11) default 0;
+    CALL add_tag(tag, tid);
+    CALL add_to_tag_map(tid, datasetID);
+END$$
+
+-- 13) Uber procedure to store run related details; also maps the associated dataset
+CREATE DEFINER=`root`@`localhost` PROCEDURE `store_new_run`(
+	in Dataset_ID int(11),
+    in runID varchar(50), 
+    in exeTime double, 
+    in startTime double, 
+    in endTime double, 
+    in runTime double,
+    in runPath varchar(100),
+    in maxModels int(11),
+    in modelSpecies varchar(50)
+)
+BEGIN
+	CALL add_leaderboard_metadata(runID, exeTime, startTime, endTime, runTime, runPath, maxModels, modelSpecies);
+    CALL add_Data_Map(Dataset_ID, runID);
+END$$
+
+-- 14) Uber procedure to store model related detail on leaderboard and map it to the given run in leaderboard metadata;
+--     Also returns the generated model ID
+CREATE DEFINER=`root`@`localhost` PROCEDURE `put_model_on_leaderboard`(
+	IN runID varchar(50),
+	IN modelName varchar(100),
+    IN rmse double,
+    IN mse double,
+    IN mae double,
+    IN rmsle double,
+    IN inBestStackedEnsemble ENUM('True','False'),
+    OUT model_id int(11)
+)
+BEGIN
+	DECLARE mod_id int(11) default -1;
+    CALL add_to_leaderboard(
+		modelName,
+		rmse,
+		mse,
+		mae,
+		rmsle,
+		inBestStackedEnsemble,
+        mod_id
+    );
+    CALL add_to_model_run(mod_id, runID);
+    SELECT mod_id into model_id;
+END$$
+
+-- 15) Uber procedure to store model related hyperparameter value; does not replicate same hyperparameter name
+--     Also returns the hyperparameter ID for the given hyperparameter name in the database
+CREATE DEFINER=`root`@`localhost` PROCEDURE `store_hyperparameter`(
+	IN model_id int(11),
+	IN hyperparameter_name varchar(50),
+    IN hyperparameter_value varchar(50),
+    OUT hyperparameter_ID int(11)
+)
+BEGIN
+	declare hpid int(11) default -1;
+	CALL add_hyperparameter(hyperparameter_name, hpid);
+    CALL add_hyperparameter_value(model_id, hpid, hyperparameter_value);
+    select hpid into hyperparameter_ID;
+END
 
 DELIMITER ;
