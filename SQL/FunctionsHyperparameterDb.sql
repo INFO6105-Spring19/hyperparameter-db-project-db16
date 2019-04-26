@@ -8,7 +8,7 @@ SQL Script to create some useful functions for the Hyperparameter Database
 
 DELIMITER $$
 USE `hyperparameter_db`$$
-DROP function IF EXISTS `All_PerformanceMetric_Models`;
+DROP function IF EXISTS `All_PerformanceMetric_Models`$$
 
 # 1) Number of models in the database for which the values of all the performance metrics are present
 CREATE DEFINER=`root`@`localhost` FUNCTION `All_PerformanceMetric_Models`() RETURNS int(11)
@@ -24,8 +24,8 @@ END $$
 
 # 2) Return a dataset from the domain given by the user having max. no. of observations (Rows)
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Dataset_MaxObservations`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Dataset_MaxObservations`$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `Dataset_MaxObservations`() RETURNS int(11)
     DETERMINISTIC
@@ -42,8 +42,8 @@ RETURN Dataset_Name;
 END$$
 
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `LastUpdated_Dataset_ID`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `LastUpdated_Dataset_ID`$$
 
 # 3) Return the latest updated dataset_Id matching a dataset name given by the user
 CREATE DEFINER=`root`@`localhost` FUNCTION `LastUpdated_Dataset_ID`() RETURNS int(11)
@@ -58,8 +58,8 @@ limit 1;
 RETURN dataset_id;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `ModelRun_Count_DataSizeRange`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `ModelRun_Count_DataSizeRange`$$
 
 # 4) Return the no. of models run on Datasets lying in a particular data range
 CREATE DEFINER=`root`@`localhost` FUNCTION `ModelRun_Count_DataSizeRange`() RETURNS int(11)
@@ -74,8 +74,8 @@ where DT_MtData.Data_Size between 59570000 and 59570300;
 RETURN Count_of_ModelID;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Dataset_Name_MaxDataSize`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Dataset_Name_MaxDataSize`$$
 
 # 5) Return a dataset name from a domain having maximum data size
 CREATE DEFINER=`root`@`localhost` FUNCTION `Dataset_Name_MaxDataSize`() RETURNS varchar(50)
@@ -91,8 +91,8 @@ having max(Dt_MData.Data_Size);
 RETURN name;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Run_ID_WorstRMSE`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Run_ID_WorstRMSE`$$
 
 # 6) Return min value of RMSE for a particular model-species and run-time
 CREATE DEFINER=`root`@`localhost` FUNCTION `Run_ID_WorstRMSE`() RETURNS int(11)
@@ -107,8 +107,8 @@ where LDR_MData.Model_Species = "Regression" and LDR_MData.run_time = 300;
 RETURN WorstRMSE_Run_ID;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Dataset_NoNull_Col_Domain`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Dataset_NoNull_Col_Domain`$$
 
 # 7) Return the count of datasets with no null values in each column for a particular domain 
 CREATE DEFINER=`root`@`localhost` FUNCTION `Dataset_NoNull_Col_Domain`() RETURNS int(11)
@@ -124,8 +124,8 @@ where Tags.Tag_Name = "salaries/payroll"  and Dt_VarDet.Null_Values_in_each_colu
 RETURN Count_of_Dataset_NoNull;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Unique_Dataset_Owner`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Unique_Dataset_Owner`$$
 
 # 8) Return the count of unique number of dataset_owners
 CREATE DEFINER=`root`@`localhost` FUNCTION `Unique_Dataset_Owner`() RETURNS int(11)
@@ -137,8 +137,8 @@ from dataset_metadata;
 RETURN Unique_Dataset_Owner;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `ModelName_BestRMSE_MSpecies_RunTime`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `ModelName_BestRMSE_MSpecies_RunTime`$$
 
 # 9) Return the maximum value of the number of models generated in a run based on model type given by the user
 CREATE DEFINER=`root`@`localhost` FUNCTION `MaxModels_ModelSpecies`() RETURNS int(11)
@@ -151,8 +151,8 @@ where model_species = "Regression";
 RETURN Max_Models;
 END$$
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Count_Dataset_WithCol_NoNull`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Count_Dataset_WithCol_NoNull`$$
 
 # 10) Return the count of the columns having no null values in columns for a given dataset 
 CREATE DEFINER=`root`@`localhost` FUNCTION `Count_Dataset_WithCol_NoNull`() RETURNS int(11)
@@ -167,8 +167,8 @@ RETURN Columns_Without_Null;
 END$$
 
 
-USE `hyperparameter_db`;
-DROP function IF EXISTS `Count_Dataset_TypeOfVariable`;
+USE `hyperparameter_db`$$
+DROP function IF EXISTS `Count_Dataset_TypeOfVariable`$$
 
 # 11) Return the no. of columns in a given dataset for an input data type of variable
 CREATE DEFINER=`root`@`localhost` FUNCTION `Count_Dataset_TypeOfVariable`() RETURNS int(11)
