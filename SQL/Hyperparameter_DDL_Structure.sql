@@ -120,7 +120,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `hyperparameter_db`.`Model_Map` (
   `Model_Type_ID` INT NOT NULL,
   `Model_Type_Name` VARCHAR(50) NULL,
-  PRIMleaderboardARY KEY (`Model_Type_ID`))
+  PRIMARY KEY (`Model_Type_ID`))
 ENGINE = InnoDB;
 
 
