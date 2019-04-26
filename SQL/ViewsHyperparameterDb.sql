@@ -217,23 +217,8 @@ VIEW `hyperparameter_db`.`models_performancemeasures` AS
         JOIN `hyperparameter_db`.`leaderboard` `ldr` ON ((`ldr`.`Model_ID` = `mr`.`Model_ID`)))
     WHERE
         (`ldr_mdata`.`Run_Time` = 300);
-        
-# View:14 Check if a particular model is present in the BestofFamily for that run - presenceofmodel_bestoffamily
-CREATE 
-ALGORITHM = UNDEFINED 
-DEFINER = `root`@`localhost` 
-SQL SECURITY DEFINER
-VIEW `hyperparameter_db`.`presenceofmodel_bestoffamily` AS
-    SELECT 
-        `hyperparameter_db`.`leaderboard`.`Model_ID` AS `Model_ID`,
-        `hyperparameter_db`.`leaderboard`.`Model_Name` AS `Model_Name`,
-        `hyperparameter_db`.`leaderboard`.`Presence_StackedEnsembled_Best_of_Family` AS `Presence_StackedEnsembled_Best_of_Family`
-    FROM
-        `hyperparameter_db`.`leaderboard`
-    WHERE
-        (`hyperparameter_db`.`leaderboard`.`Model_Name` = 'GBM_1_AutoML_20190410_190849');
 
-# View:15 List the different runs and their details for which a dataset was tested - run_details
+# View:14 List the different runs and their details for which a dataset was tested - run_details
 CREATE 
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 

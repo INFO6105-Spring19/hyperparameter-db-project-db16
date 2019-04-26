@@ -131,3 +131,12 @@ where tag_map.tag_ID = (select Tag_ID from Tags where tag_name like '%salaries%'
 order by metric desc
 limit 1;
 
+# Case 15: Check if a particular model is present in the BestofFamily for a given run - presenceofmodel_bestoffamily
+SELECT 
+	`hyperparameter_db`.`leaderboard`.`Model_ID` AS `Model_ID`,
+	`hyperparameter_db`.`leaderboard`.`Model_Name` AS `Model_Name`,
+	`hyperparameter_db`.`leaderboard`.`Presence_StackedEnsembled_Best_of_Family` AS `Presence_StackedEnsembled_Best_of_Family`
+FROM
+	`hyperparameter_db`.`leaderboard`
+WHERE
+	(`hyperparameter_db`.`leaderboard`.`Model_Name` = 'GBM_1_AutoML_20190410_190849');
