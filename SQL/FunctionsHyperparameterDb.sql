@@ -95,16 +95,16 @@ USE `hyperparameter_db`$$
 DROP function IF EXISTS `Run_ID_WorstRMSE`$$
 
 # 6) Return min value of RMSE for a particular model-species and run-time
-CREATE DEFINER=`root`@`localhost` FUNCTION `Run_ID_WorstRMSE`() RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `Run_ID_BestRMSE`() RETURNS int(11)
     DETERMINISTIC
 BEGIN
-DECLARE WorstRMSE_Run_ID int;
-select MIN(LDR.RMSE) into WorstRMSE_Run_ID
+DECLARE BestRMSE_Run_ID int;
+select MIN(LDR.RMSE) into BestRMSE_Run_ID
 from model_run as MR
 inner join leaderboard as LDR on LDR.Run_ID = MR.Run_ID
 inner join leaderboard_metadata as LDR_MData on LDR_MData.Model_ID = MR.Model_ID
 where LDR_MData.Model_Species = "Regression" and LDR_MData.run_time = 300;
-RETURN WorstRMSE_Run_ID;
+RETURN BestRMSE_Run_ID;
 END$$
 
 USE `hyperparameter_db`$$
